@@ -1,0 +1,772 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass";
+@import "susy";
+@import "breakpoint";
+@import "compass/css3/box-sizing";
+@import "compass/css3/opacity";
+
+$green: #355D57;
+$greendk: #173A3E;
+$greenlt: #A9CD8F;
+$red: #A54400;
+$orange: #FD823E;
+$cream: rgb(255,251,202);
+$yellow: #FFC14C;
+$putty: #4E4F40;
+
+$serif: 'ff-meta-serif-web-pro', 'Georgia', serif;
+$sans: 'triplex-cond-sans', sans-serif;
+$script: 'voltage', 'ff-meta-serif-web-pro', 'Georgia', serif;
+
+$unit: 20px;
+$small: 600px;
+$medium: 900px;
+$large: 1024px;
+$bleed: 10em;
+
+
+$susy: (
+    columns: 12,
+    gutters: 1
+);
+
+@mixin caps-sans {
+   //take info from span on high/low points or elsewhere 
+    display: inline-block;
+    font: 400 1.3rem/1.3 $sans;
+    color: $green;
+    letter-spacing: .09rem;
+    text-transform: uppercase;
+}
+
+@mixin underlined-heading {
+  //next 3 lines from https://css-tricks.com/centering-css-complete-guide/
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);  //end of css-tricks
+    font-family: $sans;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: .08rem;   
+    text-transform: uppercase;
+    text-align: right;
+    color: $red;
+    border-bottom: 2px solid $red;
+}
+
+body {
+    width: 100%;
+    font-size: 100%; 
+}
+
+main {
+    @include clearfix;
+    float: left;
+}
+
+@mixin link-nav-a {
+    display: block;
+    text-decoration: none;
+    color: $cream;
+    text-align: center;
+    font: 1rem/1.1 $serif;
+    font-weight: 100;
+    letter-spacing: .025rem;
+    padding-bottom: $unit*.5;
+}
+
+header {
+    background-color: $orange;
+    background-image: url(../img/ringsheader-06.svg);
+    background-repeat: no-repeat;
+    background-position-y: top;
+    padding: $unit*1.5 $unit $unit;
+    height: 7em;
+    
+    #logo {
+            display: inline-block;
+            width: 40%;
+            min-width: 170px;
+            float: left;
+            padding-left: 4%;
+        @include breakpoint(480px) {
+            width: 35%;
+            max-width: 150px;
+        }
+        @include breakpoint(600px) {
+            padding-left: 3%;
+            padding-right: 3%;
+        }
+        @include breakpoint(750px) {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+        @include breakpoint(900px) {
+            padding-left: 9%;
+            padding-right: 9%;
+        }
+    }
+    #hamburger {
+        float: right;
+        color: $cream;
+        font-size: 4rem;
+        
+            @include breakpoint(676px) {
+                display: none;
+            }  
+    }
+        
+    nav {
+        display: none;
+        
+        
+        @include breakpoint($small) {
+            float: left;
+        }
+        @include breakpoint(676px) {
+            display: inline-block;
+        }
+
+            ul {
+                list-style: none;
+                padding-top: $unit*.5;
+                    li {
+                        display: inline-block;
+                        padding: 0 .5rem;
+                        
+                        @include breakpoint(750px) {
+                            padding: 0 .75rem;
+                        }
+                        @include breakpoint(900px) {
+                            padding: 0 1rem;
+                        }
+
+                        a {
+                            @include link-nav-a;
+                        }
+                        a:hover {
+                            color: $red;
+                        }
+                    }
+                @include breakpoint($small) {  //for ul
+                    padding-top: $unit*3;
+                }
+            }
+    }
+    @include breakpoint($small) {   //for header
+        height: 5rem;
+    }
+}
+//hover transition code adapted from https://codepen.io/maheshambure21/pen/QwXaRw
+nav ul li a,      
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+nav.stroke ul li a,
+nav.fill ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after,
+nav.fill ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: $yellow;
+  height: 1px;
+}
+nav.stroke ul li a:hover:after {
+  width: 100%;
+}
+
+nav.fill ul li a {
+  transition: all 2s;
+}
+
+nav.fill ul li a:after {
+  text-align: left;
+  content: '.';
+  margin: 0;
+  opacity: 0;
+}
+nav.fill ul li a:hover {
+  color: #fff;
+  z-index: 1;
+}
+nav.fill ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  -webkit-animation: fill 1s forwards;
+  -moz-animation: fill 1s forwards;
+  opacity: 1;
+}
+//end of hover transition code from https://codepen.io/maheshambure21/pen/QwXaRw
+
+//start of sliding nav menu code adapted from http://www.w3schools.com/howto/howto_js_sidenav.asp
+/* The side navigation menu */
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0;
+            right: 0;
+            background-color: lighten($orange, 2%); 
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+            box-shadow: 4px 0 13px #777;
+        }
+
+        /* The navigation menu links */
+        .sidenav a {
+            @include link-nav-a;
+            text-align: left;
+            line-height: 1.8;
+            padding: 8px 8px 8px 32px;
+            transition: 0.3s
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover, .offcanvas a:focus{
+            color: $red;
+        }
+
+        /* Position and style the close button (top right corner) */
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            font-size: 36px;
+            margin-right: 50px;
+        }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-right .5s;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+//end of slider menu nav adapted from w3schools. 
+
+h2 {
+    font: 2rem/2 $script;
+    color: $green;
+}
+
+h4 {
+
+    background: $orange;
+    font:  3rem/1.5 $sans;
+    letter-spacing: .1rem;
+    color: $greendk;
+    text-transform: uppercase;
+    text-align: center;
+    float: left;
+    padding-top: $unit;
+    padding-bottom: $unit;
+    padding-left: 10%;
+    padding-right: 10%;
+    width:100%;
+    box-sizing: border-box;
+}
+h5 {
+
+    background: $greenlt;
+    font: italic 1.1rem/1.5 $serif;
+    text-align: center;
+    color: $greendk;
+    float: left;
+    padding-top: $unit;
+    padding-bottom: $unit;
+    padding-left: 10%;
+    padding-right: 10%;
+    width:100%;
+    box-sizing: border-box;
+}
+
+@mixin first-child() {
+  &:first-of-type {
+    padding-top: 0;
+  }
+}
+
+p {
+    font: 300 .9rem/1.6 $serif;
+    color: $putty;
+    padding-top: $unit*.75;
+    letter-spacing: .01rem;
+    @include first-child
+}
+
+
+.intro {
+    //@include span(12);
+    //@include bleed-x(1 of 12);
+    //width: 100%;
+    background: $cream;
+    font: 300 1rem/1.6 $serif;
+    color: $putty;
+    padding-top: $unit;
+    padding-bottom: $unit;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.firstline {
+    box-sizing: border-box;
+    font: italic 300 1.4rem/1.6 $serif;
+    color: $red;
+    letter-spacing: .03rem;
+    padding-right: .15rem;
+}
+
+.bg-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:$greenlt;
+    @include span(12 of 12);
+    //@include bleed-x(1 of 12);
+}
+.treecircle{
+    background-image: url(../img/treecircle.jpg);
+}
+.hell {
+    background-image: url(../img/cone-fire.jpg);
+}
+.stories {
+    background-image: url(../img/sunlight.jpg);
+}
+.future {
+    background-image: url(../img/future.jpg);
+}
+.forest {
+    background-image: url(../img/forest.jpg);
+}
+.sprout2 {
+    background-image: url(../img/sprout2.jpg);
+}
+
+.rings {
+    background-image: url(../img/ringsbig-07.svg);
+    background-size: auto;
+    background-position: left;
+    
+            @include breakpoint($small) {
+                img {
+                    @include span(3 at 2);
+                }
+                .leftpic {
+                   @include span(4 at 2);
+                }
+    }
+}
+.sprout {
+
+    @include breakpoint($small) {
+       // margin-top: 3%;    
+    }
+}
+.bg-greendk {
+    background-color: $greendk;
+}
+
+article {
+        @include breakpoint($small) {
+            .leftstory {
+                @include span(6 at 1);
+            }
+        }
+    
+        section {
+            background-color: $cream;
+            padding: $unit $unit $unit 0;
+            margin: 20% 0 10%;
+            @include span(10 at 2);
+            position: relative; //for vertical centering of h3
+            opacity: 0.89;
+            
+            @include breakpoint($small) {
+                @include span(6 at 7);
+                padding: $unit*1.5 $unit*1.5 $unit*1.5 0;
+            }
+            
+            h3 {
+                @include span(2 of 6);
+                @include underlined-heading;
+                
+                @include breakpoint($medium) {
+                    font-size: 3rem;
+                }
+            }
+            p {
+                @include span(4 at 3 of 6);
+                font-style: italic;
+            }
+            .subhead {
+                font:  $sans;
+                text-transform: uppercase;
+            }
+        }
+
+}
+//STORIES ------ STORIES  
+@mixin first-child() {
+  &:first-of-type {
+    margin-top: 10%;
+  }
+}
+
+.stories {
+    padding-bottom: 10%;
+    
+
+
+        .segment {
+            background-color: $cream;
+            padding: $unit $unit $unit 0;
+            //margin: 20% 0 10%;
+            @include span(10 at 2);
+            position: relative; //for vertical centering of h3
+            opacity: 0.89;
+            @include nested(12);
+            @include first-child;
+            margin-top: 0%;
+            margin-bottom: 0%;
+            
+                h3{
+                    @include span(3 of 10);
+                    font-size: 2rem;
+                    @include underlined-heading;
+                }
+                p {
+                    display: inline-block;
+                    font-style: italic;
+                    @include span(7 of 10 at 4);
+                }
+                .center-button {
+                    @include span(7 of 10 at 4);
+                }
+            
+            
+            @include breakpoint($medium) {
+                @include nested(10 of 12 at 2);
+                    h3{
+                        @include span(2 of 10);
+                        font-size: 3rem;
+                    }
+                    p {
+                        display: inline-block;
+                        font-style: italic;
+                        @include span(8 of 10 at 3);
+                    }
+                    .center-button {
+                        @include span(8 of 10 at 3);
+                    }
+            }
+            @include breakpoint($large) {
+                @include nested(8 of 12 at 5);
+                    h3{
+                        @include span(2 of 8);
+                          font-size: 3rem;
+                  }
+                    p {
+                        display: inline-block;
+                        font-style: italic;
+                        @include span(6 of 8 at 3);
+                    }
+                    .center-button {
+                        @include span(6 of 8 at 3);
+                    }
+            }
+    }
+}
+p.readmore {
+    text-align: center;
+    font-style: normal !important;
+    padding-top: 5px;
+}
+
+.greenltbg {
+    background-color: $greenlt !important;
+}
+.ss_content_design {
+    opacity: 1 !important;
+}
+
+.subhead {
+    @include caps-sans;
+    padding-right: $unit*.25;
+}
+
+.share {    
+    background: $orange; 
+    @include clearfix;
+
+    //@include span(12);
+        p {
+            font: italic normal 1.1rem/1.5 $serif;
+            color: $cream;
+            padding-left: 10%;
+            padding-right: 10%;
+            
+            @include breakpoint($small) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }    
+}
+.share-button {
+    padding: $unit*.25 0 $unit*2;
+}
+.red { color: $red; }
+
+#forget-pic {
+    float: right;
+    padding: 7%;
+    width: 100%;
+    margin-right: 0; 
+    box-sizing: border-box;
+    
+    @include breakpoint($small) {
+        width: 55%;
+    }    
+    @include breakpoint($medium) {
+        width: 45%;
+    }
+}
+#sticker-segment {
+    margin-top: 0;
+    @include breakpoint($medium) {
+        @include nested(5 of 12 at 1);
+        h3 {
+            @include span(2 of 5);
+        }
+        p {
+            @include span(3 of 5 at 3);
+        }
+        .center-button {
+            @include span(3 of 5 at 3);
+        }
+    }
+}
+
+.container-center{
+    //@include span(12 nest);
+    box-sizing: border-box;
+
+   
+        .nested-item {
+            margin: 0 auto;
+            width: 80%;
+              //  @include span(12 of 12);
+                //@include bleed(1 of 12);
+
+                @include breakpoint($small) {
+                    width: 60%;
+                   // @include span(10 of 12);
+                    //margin-left: span(1 of 12);
+                    //code from https://zellwk.com/blog/context-with-susy/
+                } 
+            
+                @include breakpoint($medium) {
+                    width: 50%;
+                   // @include span(6 of 12);
+                    //margin-left: span(3 of 12);
+                    // Alternatively, you can write margin-left: span(3 wide of 12)
+
+                } 
+        }
+}    
+
+
+
+@mixin buttonstyle {
+    margin: $unit 0 $unit;
+    width: 50%;
+    background-color: $yellow;
+    border: none;
+    font: 1.7rem/2 $sans; 
+    text-transform: uppercase;
+    letter-spacing: .09rem;
+    color: $red;
+    text-decoration: none;
+    //float: left;
+    padding: $unit*.5 $unit*1.5;
+}
+.button {
+    @include buttonstyle;
+}
+
+.script-banner {
+    @include span(12);
+    @include bleed-x(1 of 12);
+    background: $yellow;
+    font: 2.5rem/1.4 $script;
+    text-align: center;
+    color: $red;
+    padding-top: $unit;
+    padding-bottom: $unit;
+    @include clearfix;
+}
+.centered-block {
+    @include span(12);
+    @include bleed(0);
+    box-sizing: border-box;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    
+    @include breakpoint($small) {
+        @include span(10 of 12);
+        margin-left: span(1 of 12);
+        //code from https://zellwk.com/blog/context-with-susy/
+    }
+    h4 {
+        width: 100%;
+        @include bleed-x();
+        background-color: $greendk;
+        color: $yellow;
+        padding-top: $unit*.5;
+        padding-bottom: $unit*.5;
+        line-height: 1.5;
+        letter-spacing: .2rem;
+    }   
+    section {
+        width: 100%;
+        @include bleed-x();
+        padding: $unit*1.5;
+        margin: 0;
+        @include clearfix;
+    }  
+
+}
+.legalese {
+    @include span(12);
+    font-size: .7rem;
+    line-height: 1.5;
+    clear: both;
+    margin-top: $unit*.35;
+}
+.share-bg {
+    background-image: url(../img/towerings.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#share-block {  //article class
+    box-sizing: border-box;
+    padding: 4%;
+    background: $greenlt;
+    float: left;
+    
+}
+.share-form { //div class
+    float: left; //part of offset problem with h4
+    background-color: rgba(255,251,202,0.7);
+    padding: 5%;
+}
+@mixin form-text-box{
+    width: 100%;
+    border: none;
+    background-color: $cream;
+    padding: $unit*.5;
+    margin-top: $unit*.25;
+    margin-bottom: $unit;
+    box-sizing: border-box;
+}
+label {
+    @include caps-sans;
+    color: $red;
+}
+textarea {
+    @include form-text-box;
+} 
+input[type=submit] {
+    @include buttonstyle;
+    float: none;
+}
+.center-button {
+    text-align: center;
+    float: none;
+}
+
+.textual-input {
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    
+    @include breakpoint($small) {
+        width: 70%;
+    }
+}
+#tree-rating-section {
+    box-sizing: border-box;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    width: 100%;
+    background-image: url(../img/treeillus.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 3rem;
+    
+    @include breakpoint($small) {
+        width: 25%;
+        margin-left: 5%;
+    }
+    
+    p {
+        font-style: italic;
+    }
+}
+
+
+footer {
+    //@include span(12);
+    //@include bleed-x(1 of 12);
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+    font: 2.5rem/1.3 $script;
+    background-color: $orange; 
+    color: $greendk;
+    text-align: center;
+    padding: $unit $unit $unit*.25;
+    
+    .copyright {
+        color: $yellow;
+        font: .6rem/1 $serif;
+        text-align: right;
+        padding-bottom: $unit;
+    }
+}
+
+//accordion code adapted from http://jsfiddle.net/ryanstemkoski/6gbq0yLv/
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#ss_menu { 
+	}
+
+.ss_button { 
+	cursor: pointer;
+	}
+	
+.ss_content {
+	display: none;
+	}

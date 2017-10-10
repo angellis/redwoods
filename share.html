@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <!--typekit fonts-->
+    <script src="https://use.typekit.net/ezt6hts.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+    
+	<meta charset="UTF-8">  
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Share Your Story</title>
+	
+    <link rel="stylesheet" href="css/screen.css">
+    <script type="text/javascript" src="js/nav-slider.js"></script>
+
+</head>
+
+<body>
+        
+<!--    sliding menu code adapted from http://www.w3schools.com/howto/howto_js_sidenav.asp-->
+    
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="index.html#read">Read Our Stories</a>
+      <a href="share.html">Share Your Story</a>
+      <a href="index.html#forget">Forget-You-Not</a>
+    </div>
+    
+<!-- end of sliding menu side element   -->
+
+    <div id="wrapper">
+	  <header>    
+          
+        <a href="index.html"><img src="img/logo-redwoods-06.svg" id="logo" alt="we are redwoods"></a>
+              
+        <!-- Use any element to open the sidenav -->
+        <span id="hamburger" onclick="openNav()">&#9776;</span>
+          
+        <nav class="stroke">
+            <ul>
+                <li><a href="index.html#read">Read Our Stories</a></li>
+                <li><a href="share.html">Share Your Story</a></li>
+                <li><a href="index.html#forget">Forget-You-Not</a></li>
+            </ul>
+        </nav>
+      </header>	
+        
+      <main class="share-bg">
+          
+              
+          <article class="script-banner">
+              We are all Redwoods
+          </article>
+          
+            <div id="share-block">
+   
+                <h4 class=""> Share Your Story</h4>
+
+                <div class="share-form">
+                    <form action="http://www.weareredwoods.com/share.php" method="post" id="share-your-story-form">
+                                        
+                    <fieldset class="textual-input">
+                        <label for="fname">First Name</label>
+                        <textarea id="fname" name="firstname" placeholder="Real or not&hellip;it&rsquo;s up to you"></textarea>
+
+                        <label for="highpt">High Point</label>
+                        <textarea id="highpt" name="highpoint" placeholder="Biggest accomplishment and achievements, resume and beyond"></textarea>
+
+                        <label for="lowpt">Low Point</label>
+                        <textarea id="lowpt" name="lowpoint" placeholder="Worst moment"></textarea>
+
+                        <label for="gotout">How I got out</label>
+                        <textarea id="gotout" name="howgotout" placeholder="The turning point, how it played out"></textarea>
+
+                        <label for="advice">Advice for my Old Self</label>
+                        <textarea id="advice" name="adviceforself" placeholder="What I&rsquo;d like to go back and tell myself"></textarea>
+
+                        <label for="optional">Optional</label>
+                        <textarea id="optional" name="optional-entry" placeholder="People see me as, what I'm afraid people will see, I&rsquo;m most proud of, I&rsquo;m still affected by, who supports my growth"></textarea>
+
+                    </fieldset>
+                        
+                    <div id="tree-rating-section">   
+
+                        <label for="treerating">RATE YOUR GROWTH</label>
+                        <p>Tall &amp; Mature</p>
+
+                        <input type="radio" name="height" value="5of5">
+                        <input type="radio" name="height" value="4of5">
+                        <input type="radio" name="height" value="3of5">
+                        <input type="radio" name="height" value="2of5">
+                        <input type="radio" name="height" value="1of5">
+
+                        <p>Seedling</p>
+                    </div>
+                        
+                    <p class="legalese">We Are Redwoods will edit your answers for spelling and grammar. We may not include answers in their entirety. We may edit for the most inspiring content, but the meaning will not be altered. By clicking the button below, you verify the authenticity of your statements and give We Are Redwoods permission to publish them. We will not give others permission to use the information. </p>
+
+                    <div class="center-button"><input type="submit" value="Send My Story"></div>
+                    </form>
+                </div>
+
+          </div>
+      </main>
+        
+      <footer> 
+          We are all Redwoods
+          
+          <div class="copyright">&copy;Copyright 2018 We Are Redwoods</div>
+      </footer>
+    
+    </div> <!--wrapper-->
+</body>
+</html>
